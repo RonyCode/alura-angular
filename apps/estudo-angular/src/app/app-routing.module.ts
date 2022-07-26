@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignInComponent } from './home/signin/signin.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { AuthGuard } from './core/auth/auth.guard';
-import { SignupComponent } from './home/signup/signup.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SignInComponent,
-    canActivate: [AuthGuard],
+    pathMatch: 'full',
+    redirectTo: 'home',
   },
   {
-    path: 'signup',
-    component: SignupComponent,
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'user/:userName',
