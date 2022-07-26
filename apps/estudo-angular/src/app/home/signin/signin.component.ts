@@ -1,24 +1,21 @@
-import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
-import { PlataformDetectorService } from '../../core/plataform-detector/plataform-detector.service';
+import { PlatformDetectorService } from '../../core/plataform-detector/platform-detector.service';
 
 @Component({
-  selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css'],
-  encapsulation: ViewEncapsulation.Emulated,
 })
-export class SigninComponent implements OnInit {
+export class SignInComponent implements OnInit {
   loginForm: FormGroup | any;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private renderer: Renderer2,
-    private platFormDetectorService: PlataformDetectorService
+    private platformDetectorService: PlatformDetectorService,
+    private elementDom: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -26,21 +23,21 @@ export class SigninComponent implements OnInit {
       userName: ['', Validators.required],
       password: ['', Validators.required],
     });
+    this.elementDom.selectRootElement('#userNameInput').focus();
   }
 
   login() {
     const userName = this.loginForm.get('userName').value;
     const password = this.loginForm.get('password').value;
-    this.authService.authenticate(userName, password).subscribe({
-      next: () => this.router.navigate(['user', userName]),
 
-      error: (err) => {
+    this.authService.authenticate(userName, password).subscribe(
+      () => this.router.navigate(['user', userName]),
+      (err) => {
         console.log(err);
         this.loginForm.reset();
-        this.renderer.selectRootElement('#userNameInput').focus();
-        alert('Invalid  username or password');
-      },
-      complete: () => console.log('Success'),
-    });
+        this.elementDom.selectRootElement('#userNameInput').focus();
+        alert('Invalid user name or password');
+      }
+    );
   }
 }

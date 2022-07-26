@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from '../token/token.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
-import jtw_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  private userSubject = new BehaviorSubject<User>({
+  private subJectUser = new BehaviorSubject<User>({
     id: null,
     name: null,
-    email: null
+    email: null,
   });
+  private userName!: string | null;
 
   constructor(private tokenService: TokenService) {
     this.tokenService.hasToken() && this.decodeAndNotify();
@@ -23,15 +24,33 @@ export class UserService {
     this.decodeAndNotify();
   }
 
+  getUser() {
+    return this.subJectUser.asObservable();
+  }
+
+  logOut() {
+    this.tokenService.removeToken();
+    this.subJectUser.next({
+      id: null,
+      name: null,
+      email: null,
+    });
+  }
+
+  isLogged() {
+    return this.tokenService.hasToken();
+  }
+
+  getUserName() {
+    return this.userName;
+  }
+
   private decodeAndNotify() {
     const token = this.tokenService.getToken();
     if (token) {
-      const user = jtw_decode(token) as User;
-      this.userSubject.next(user);
+      const user = jwtDecode(token) as User;
+      this.userName = user.name;
+      this.subJectUser.next(user);
     }
-  }
-
-  getUser() {
-    return this.userSubject as Observable<User>;
   }
 }

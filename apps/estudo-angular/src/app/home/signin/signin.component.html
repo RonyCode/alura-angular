@@ -1,6 +1,6 @@
 <h4 class='text-center'>Login</h4>
 
-<form class='form mt-4' [formGroup]='loginForm' (submit)='login()'>
+<form [formGroup]='loginForm' class='form' (submit)='login()'>
 
   <div class='form-group'>
     <input
@@ -9,11 +9,10 @@
       class='form-control'
       placeholder='user name'
       autofocus>
-    <app-vmessage
+    <ap-vmessage
       *ngIf="loginForm.get('userName').errors?.required"
-      text='Username is required!'
-    >
-    </app-vmessage>
+      text='User name is required!'>
+    </ap-vmessage>
   </div>
 
   <div class='form-group'>
@@ -22,11 +21,10 @@
       type='password'
       class='form-control'
       placeholder='password'>
-    <app-vmessage
+    <ap-vmessage
       *ngIf="loginForm.get('password').errors?.required"
-      text='Username is required!'
-    >
-    </app-vmessage>
+      text='Password is required!'>
+    </ap-vmessage>
   </div>
 
   <button
@@ -38,4 +36,4 @@
 
 </form>
 
-<p>Not a user?<a>Register now</a></p>
+<p>Not a user? <a [routerLink]="['signup']" >Register now</a></p>
