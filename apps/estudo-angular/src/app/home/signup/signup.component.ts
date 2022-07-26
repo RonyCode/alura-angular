@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   encapsulation: ViewEncapsulation.Emulated,
+  providers: [UserNotTakenValidatorService],
 })
 export class SignupComponent implements OnInit {
   signForm: FormGroup | any;
