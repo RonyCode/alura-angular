@@ -1,19 +1,26 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Photo } from '../../photo/photo';
 
 @Component({
-  selector: 'ap-photos',
+  selector: 'app-photos',
   templateUrl: './photos.component.html',
   styleUrls: ['./photos.component.css'],
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class PhotosComponent implements OnChanges {
   @Input() photos: Photo[] = [];
+
   rows: any[] = [];
 
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['photos']) this.rows = this.groupColumns(this.photos);
   }
 

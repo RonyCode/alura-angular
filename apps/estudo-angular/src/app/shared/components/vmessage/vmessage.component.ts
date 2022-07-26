@@ -1,10 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'ap-vmessage',
-    templateUrl: './vmessage.component.html'
+  selector: 'app-vmessage',
+  templateUrl: './vmessage.component.html',
+  styleUrls: ['./vmessage.component.css'],
+  encapsulation: ViewEncapsulation.Emulated,
 })
-export class VMessageComponent {
+export class VmessageComponent implements OnInit {
+  @Input() text = '';
 
-    @Input() text = '';
- }
+  constructor() {}
+
+  ngOnInit(): void {}
+}
