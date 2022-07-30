@@ -1,9 +1,10 @@
 <div *ngIf='(comments$ | async) as comments'>
-  <ul class='list-unstyled'>
+  <ul class='list-unstyled comment-list'>
     <li *ngFor='let comment of comments'>
-      <a class='text-dark font-weight-bold mr-1' [routerLink]="['/user', comment.userName]">
+     <a class='text-dark   fw-bolder mr-1 text-decoration-none' [routerLink]="['/user', comment.userName]">
         {{ comment.userName }}
       </a>
+
       <em>
         {{ comment.date | date:'dd-MM-yyyy HH:mm' }}
       </em>

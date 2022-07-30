@@ -36,7 +36,7 @@ export class PhotoCommentsComponent implements OnInit {
       .pipe(
         tap(() => {
           this.commentForm.reset();
-          alert('Comentario inserido com sucesso');
+          alert('Comentário inserido com sucesso');
         })
       );
   }

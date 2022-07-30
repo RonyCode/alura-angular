@@ -2,10 +2,11 @@
     Sorry, no photos
 </p>
 
-<ol class="list-unstyled">
-    <li *ngFor="let cols of rows" class="row no-gutters p-0">
-        <div *ngFor="let photo of cols" class="col-4" apDarkenOnHover>
-            <a [routerLink]="['/p',  photo.id]">
+<ol class="list-unstyled ">
+    <li *ngFor="let cols of rows" class="row no-bs-gutter">
+        <div *ngFor="let photo of cols" class="col-4 d-flex justify-content-center align-content-center p-0 "
+             apDarkenOnHover>
+            <a class='text-decoration-none text-black' [routerLink]="['/p',  photo.id]">
             <ap-card>
                 <ap-photo
                     [url]="photo.url"

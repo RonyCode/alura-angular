@@ -1,12 +1,15 @@
-<ap-search 
+<ap-search
     (onTyping)="filter = $event" [value]="filter">
 </ap-search>
+<div>
 
-<ap-photos 
+</div>
+<ap-photos
+  class='d-flex align-content-center justify-content-center'
     [photos]="photos | filterByDescription: filter">
 </ap-photos>
 
-<ap-load-button 
-    (click)="load()" 
+<ap-load-button
+    (click)="load()"
     [hasMore]="hasMore">
 </ap-load-button>
